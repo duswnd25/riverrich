@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.3.4/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+
+  <body>
+    <div id="app" class="ma-4">
+      <v-app id="keep">
+        <v-app-bar app clipped-left color="#2e6cb5">
+          <v-app-bar-nav-icon @click="drawer.instance = !drawer.instance">
+          </v-app-bar-nav-icon>
+          <span class="title ml-3 mr-5">
+            <span class="font-weight-light white--text">River&nbsp; Rich</span>
+          </span>
+          <v-text-field
+            solo-inverted
+            flat
+            hide-details
+            label="Search"
+            prepend-inner-icon="mdi-magnify"
+          ></v-text-field>
+
+          <v-spacer></v-spacer>
+        </v-app-bar>
+
+        <v-navigation-drawer
+          v-model="drawer.instance"
+          app
+          clipped
+          color="grey lighten-4"
+        >
+          <v-list dense class="grey lighten-4">
+            <v-list-item-group v-model="drawer.menuSelect" color="#2b4163">
+              <template v-for="(item, i) in drawerItems">
+                <v-row v-if="item.heading" :key="i" align="center">
+                  <v-col cols="6">
+                    <v-subheader v-if="item.heading">
+                      {{ item.heading }}
+                    </v-subheader>
+                  </v-col>
+                </v-row>
+                <v-divider v-else-if="item.divider" :key="i" dark class="my-4">
+                </v-divider>
+
+                <v-list-item v-else :key="i" link @click="toIndex(item.id)">
+                  <v-list-item-action>
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title class="grey--text">
+                      {{ item.text }}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+
+        <v-main>
+          <v-container fluid>
+            <v-row
+              class="my-4"
+              no-gutters
+              v-for="(content, index) in contents"
+              :key="index"
+            >
+              <v-banner class="col-12 mb-4" :id="content.id">
+                {{content.header}}
+              </v-banner>
+
+              <v-card outlined class="col-12" v-if="content.type === 'text'">
+                <v-card-text> {{ content.data }} </v-card-text>
+              </v-card>
+
+              <v-card class="col-12" v-if="content.type === 'table'">
+                <v-data-table
+                  :headers="content.data.headers"
+                  :items="content.data.values"
+                ></v-data-table
+              ></v-card>
+            </v-row>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.4/dist/vuetify.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+          drawer: {
+            instance: null,
+            menuSelect: null,
+          },
+          contents: [
+            {
+              header: "안내",
+              icon: "mdi-lightbulb-on-outline",
+              id: "notice",
+              type: "text",
+              data:
+                "자주 묻는 질문 & 정보를 정리한 페이지 입니다. 실제와 다를 수 있으니 참고용으로 이용 바랍니다.",
+            },
+            {
+              header: "연락처",
+              icon: "mdi-account-box-outline",
+              id: "contact",
+              type: "table",
+              data: {
+                headers: [
+                  {
+                    text: "항목",
+                    align: "start",
+                    sortable: true,
+                    value: "type",
+                  },
+                  {
+                    text: "연락처",
+                    align: "start",
+                    sortable: true,
+                    value: "contact",
+                  },
+                ],
+                values: [
+                  {
+                    type: "관리사무소",
+                    contact: "02-927-9801",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+        computed: {
+          drawerItems() {
+            const data = this.contents.map((item) => {
+              const { id, icon, header } = item;
+              return {
+                icon,
+                id,
+                text: header,
+              };
+            });
+
+            data.unshift({ heading: "Menus" });
+            return data;
+          },
+        },
+        methods: {
+          toIndex(id) {
+            window.location = `/#${id}`;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
