@@ -28,13 +28,14 @@
           <v-app-bar-nav-icon @click="drawer.instance = !drawer.instance">
           </v-app-bar-nav-icon>
           <span class="title ml-3 mr-5">
-            <span class="font-weight-light white--text">River&nbsp; Rich</span>
+            <span class="font-weight-light white--text">리버리치</span>
           </span>
           <v-text-field
             solo-inverted
             flat
             hide-details
             label="Search"
+            v-model="searchQuery"
             prepend-inner-icon="mdi-magnify"
           ></v-text-field>
 
@@ -80,7 +81,7 @@
             <v-row
               class="my-4"
               no-gutters
-              v-for="(content, index) in contents"
+              v-for="(content, index) in displayData"
               :key="index"
             >
               <v-banner class="col-12 mb-4" :id="content.id">
@@ -110,6 +111,7 @@
         el: "#app",
         vuetify: new Vuetify(),
         data: {
+          searchQuery: "",
           drawer: {
             instance: null,
             menuSelect: null,
@@ -154,6 +156,11 @@
           ],
         },
         computed: {
+          displayData() {
+            return this.contents.filter((item) =>
+              JSON.stringify(item).includes(this.searchQuery)
+            );
+          },
           drawerItems() {
             const data = this.contents.map((item) => {
               const { id, icon, header } = item;
