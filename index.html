@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <title>리버리치 가이드 문서</title>
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
       rel="stylesheet"
@@ -90,7 +91,7 @@
                 <v-card-text> {{ content.data }} </v-card-text>
               </v-card>
 
-              <v-card class="col-12" v-if="content.type === 'table'">
+              <v-card class="col-12" v-if="content.type === 'table'" outlined>
                 <v-data-table
                   :headers="content.data.headers"
                   :items="content.data.values"
