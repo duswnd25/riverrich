@@ -28,7 +28,11 @@
           <v-app-bar-nav-icon @click="drawer.instance = !drawer.instance">
           </v-app-bar-nav-icon>
           <span class="title ml-3 mr-5">
-            <span class="font-weight-light white--text">리버리치</span>
+            <span
+              v-show="!$vuetify.breakpoint.mobile"
+              class="font-weight-light white--text"
+              >리버리치</span
+            >
           </span>
           <v-text-field
             solo-inverted
@@ -114,7 +118,7 @@
           searchQuery: "",
           drawer: {
             instance: null,
-            menuSelect: null,
+            menuSelect: 0,
           },
           contents: [
             {
@@ -149,6 +153,46 @@
                   {
                     type: "관리사무소",
                     contact: "02-927-9801",
+                  },
+                ],
+              },
+            },
+            {
+              header: "주차비용",
+              icon: "mdi-car-brake-parking",
+              id: "parking-price",
+              type: "table",
+              data: {
+                headers: [
+                  {
+                    text: "항목",
+                    align: "start",
+                    sortable: true,
+                    value: "type",
+                  },
+                  {
+                    text: "비용",
+                    align: "start",
+                    sortable: true,
+                    value: "price",
+                  },
+                ],
+                values: [
+                  {
+                    type: "입주민 월 주차",
+                    price: "-",
+                  },
+                  {
+                    type: "외부 월 주차 (12시간)",
+                    price: "-",
+                  },
+                  {
+                    type: "외부 월 주차 (24시간)",
+                    price: "-",
+                  },
+                  {
+                    type: "단기 주차",
+                    price: "-",
                   },
                 ],
               },
