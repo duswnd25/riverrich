@@ -86,9 +86,10 @@
               class="my-4"
               no-gutters
               v-for="(content, index) in displayData"
+              :id="content.id"
               :key="index"
             >
-              <v-banner class="col-12 mb-4" :id="content.id">
+              <v-banner class="col-12 mb-4">
                 {{content.header}}
               </v-banner>
 
@@ -100,6 +101,9 @@
                 <v-data-table
                   :headers="content.data.headers"
                   :items="content.data.values"
+                  hide-default-footer
+                  :items-per-page="content.data.values.length"
+                  disable-pagination
                 >
                   <template v-slot:item.price="{ item }">
                     {{ (item.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g,
