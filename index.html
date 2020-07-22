@@ -100,8 +100,13 @@
                 <v-data-table
                   :headers="content.data.headers"
                   :items="content.data.values"
-                ></v-data-table
-              ></v-card>
+                >
+                  <template v-slot:item.price="{ item }">
+                    {{ (item.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                    ",") }}
+                  </template>
+                </v-data-table>
+              </v-card>
             </v-row>
           </v-container>
         </v-main>
@@ -212,39 +217,39 @@
                 values: [
                   {
                     type: "입주민 월 주차",
-                    price: "35,000",
+                    price: 35000,
                   },
                   {
                     type: "외부 월 주차 (12시간)",
-                    price: "80,000",
+                    price: 80000,
                   },
                   {
                     type: "외부 월 주차 (24시간)",
-                    price: "130,000",
+                    price: 130000,
                   },
                   {
                     type: "단기 주차 (시간당)",
-                    price: "1,000",
+                    price: 1000,
                   },
                   {
                     type: "입주민 방문 차량 (1일 / 가족)",
-                    price: "3,000",
+                    price: 3000,
                   },
                   {
                     type: "입주민 방문 차량 (12시간 / 가족)",
-                    price: "1,500",
+                    price: 1500,
                   },
                   {
                     type: "입주민 방문 차량 (1일 / 그외)",
-                    price: "4,000",
+                    price: 4000,
                   },
                   {
                     type: "입주민 방문 차량 (12시간 / 그외)",
-                    price: "2,000",
+                    price: 2000,
                   },
                   {
                     type: "단기 주차 (시간당)",
-                    price: "1,000",
+                    price: 1000,
                   },
                 ],
               },
@@ -275,6 +280,9 @@
           toIndex(id) {
             this.searchQuery = "";
             window.location = `#${id}`;
+          },
+          priceComma(value) {
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           },
         },
       });
