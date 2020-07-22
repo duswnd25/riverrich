@@ -19,6 +19,21 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
     />
+
+    <style type="text/css">
+      a:link {
+        color: black;
+        text-decoration: none;
+      }
+      a:visited {
+        color: black;
+        text-decoration: none;
+      }
+      a:hover {
+        color: black;
+        text-decoration: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -94,6 +109,7 @@
               </v-banner>
 
               <v-card
+                outlined
                 :class="{'col-12' : $vuetify.breakpoint.mobile}"
                 :class="{'col-auto' : !$vuetify.breakpoint.mobile}"
                 v-if="content.type === 'text'"
@@ -102,6 +118,7 @@
               </v-card>
 
               <v-card
+                outlined
                 :class="{'col-12' : $vuetify.breakpoint.mobile}"
                 :class="{'col-auto' : !$vuetify.breakpoint.mobile}"
                 v-if="content.type === 'table'"
@@ -113,36 +130,37 @@
                   :items-per-page="content.data.values.length"
                   disable-pagination
                 >
-                  <template
-                    v-if="content.id.includes('price')"
-                    v-slot:item.price="{ item }"
-                  >
+                  <template v-slot:item.price="{ item }">
                     {{ (item.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g,
                     ",") }}
                   </template>
-                  <template
-                    v-else-if="content.id.includes('contact')"
-                    v-slot:item.price="{ item }"
-                  >
-                    <a href="tel:{{item}}">{{ item }}</a>
+                  <template v-slot:item.contact="{ item }">
+                    <a style="color: black;" v-bind:href="`tel:${item.contact}`"
+                      >{{ item.contact }}</a
+                    >
                   </template>
                 </v-data-table>
               </v-card>
 
               <v-card
+                outlined
                 :class="{'col-12' : $vuetify.breakpoint.mobile}"
                 :class="{'col-auto' : !$vuetify.breakpoint.mobile}"
                 v-if="content.type === 'list'"
               >
-                <v-list-item
-                  v-for="(item, index) in content.data"
-                  :key="index"
-                  two-line
-                >
-                  <v-list-item-content>
-                    <v-list-item-sub-title>{{ item }}</v-list-item-sub-title>
-                  </v-list-item-content>
-                </v-list-item>
+                <template v-for="(item, index) in content.data">
+                  <v-list-item :key="index" two-line>
+                    <v-list-item-content>
+                      <v-list-item-sub-title>{{ item }}</v-list-item-sub-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-divider
+                    v-if="index + 1 < content.data.length"
+                    :key="index"
+                  >
+                  </v-divider>
+                </template>
               </v-card>
             </v-row>
           </v-container>
@@ -308,6 +326,16 @@
                 "1. 아파트아이 앱 다운로드 또는 컴퓨터에서 아파트 아이 접속",
                 "2. 회원가입 (건물번호 : 호수 4자리 (ex : 0001) - 06728 - 0001)",
                 "3. 조회",
+              ],
+            },
+            {
+              header: "관리비 미납시",
+              icon: "mdi-cellphone-information",
+              id: "manage-price-late",
+              type: "list",
+              data: [
+                "방법 1 : 다음 달 관리비 납부시 같이 납부",
+                "방법 2 : 입금 후 관리사무소 연락",
               ],
             },
           ],
