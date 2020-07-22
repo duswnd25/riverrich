@@ -97,7 +97,7 @@
                 <v-card-text> {{ content.data }} </v-card-text>
               </v-card>
 
-              <v-card class="col-12" v-if="content.type === 'table'" outlined>
+              <v-card class="col-auto" v-if="content.type === 'table'" outlined>
                 <v-data-table
                   :headers="content.data.headers"
                   :items="content.data.values"
@@ -137,6 +137,14 @@
               type: "text",
               data:
                 "자주 묻는 질문 & 정보를 정리한 페이지 입니다. 실제와 다를 수 있으니 참고용으로 이용 바랍니다.",
+            },
+            {
+              header: "주차장 향후 방안",
+              icon: "mdi-lightbulb-on-outline",
+              id: "parking-notice",
+              type: "text",
+              data:
+                "투표 결과 현행 유지하며 점진적 개선하기로 하였으며 원활한 관리를 위해 무인정산기 등 설치 예정",
             },
             {
               header: "연락처",
@@ -276,7 +284,7 @@
               };
             });
 
-            data.unshift({ heading: "Menus" });
+            data.unshift({ heading: "목차" });
             return data;
           },
         },
@@ -284,9 +292,6 @@
           toIndex(id) {
             this.searchQuery = "";
             window.location = `#${id}`;
-          },
-          priceComma(value) {
-            return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           },
         },
       });
