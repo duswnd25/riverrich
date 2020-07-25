@@ -167,7 +167,9 @@
                 <template v-for="(item, index) in content.data">
                   <v-list-item :key="index" two-line>
                     <v-list-item-content>
-                      <v-list-item-sub-title>{{ item }}</v-list-item-sub-title>
+                      <v-list-item-sub-title
+                        v-html="item"
+                      ></v-list-item-sub-title>
                     </v-list-item-content>
                   </v-list-item>
 
@@ -351,7 +353,19 @@
               type: "list",
               data: [
                 "방법 1 : 다음 달 관리비 납부시 같이 납부",
-                "방법 2 : 입금 후 관리사무소 연락",
+                "방법 2 : 관리사무소 연락 후 입금",
+              ],
+            },
+            {
+              header: "대형 폐기물",
+              icon: "mdi-trash-can-outline",
+              id: "manage-large-trash",
+              type: "list",
+              data: [
+                '1. 동대문구 대형 페기물 배출 신고 (<a href="https://ecopass.ddm.go.kr/index.do">여기</a>)',
+                "2. 신고번호 확인",
+                "3. 관리사무소 또는 관리원에 신고번호 전달",
+                "4. 폐기물 배출 (분리수거장)",
               ],
             },
           ],
