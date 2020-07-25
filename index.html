@@ -8,8 +8,8 @@
       rel="stylesheet"
     />
     <link
-      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css"
       rel="stylesheet"
+      href="//cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css"
     />
     <link
       href="https://cdn.jsdelivr.net/npm/vuetify@2.3.4/dist/vuetify.min.css"
@@ -348,7 +348,7 @@
             },
             {
               header: "관리비 미납시",
-              icon: "mdi-cellphone-information",
+              icon: "mdi-cash-usd-outline",
               id: "manage-price-late",
               type: "list",
               data: [
@@ -366,6 +366,17 @@
                 "2. 신고번호 확인",
                 "3. 관리사무소 또는 관리원에 신고번호 전달",
                 "4. 폐기물 배출 (분리수거장)",
+              ],
+            },
+            {
+              header: "주차장 내 사고 발생시",
+              icon: "mdi-car",
+              id: "manage-car-accident",
+              type: "list",
+              data: [
+                "1. 사고 현장 보존",
+                "2. 피해 당사자 또는 관리실에 사고 사실 고지",
+                "3. 피해 당사자와 손해 보상 등 처리",
               ],
             },
           ],
